@@ -41,6 +41,6 @@ public class Node <T> {
 
     @Override
     public String toString() {
-        return reference.toString();
+        return String.format("Node of {%s}", reference.toString());
     }
 }

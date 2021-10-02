@@ -1,13 +1,10 @@
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
-
 public class Queue <T> {
 
     // Nodes to keep track of current head and tail of the queue
     private Node<T> head;
     private Node<T> tail;
 
+    // amount of Nodes in this chain of Nodes
     private int size;
 
     /**
@@ -60,6 +57,10 @@ public class Queue <T> {
         return toReturn;
     }
 
+    /**
+     * returns whether this Queue is currently empty
+     * @return if this queue is empty
+     */
     public boolean isEmpty () {
         return size < 1;
     }
@@ -67,10 +68,14 @@ public class Queue <T> {
     // Getter
 
     public T getHead () {
+        if (isEmpty())
+            throw new EmptyQueueException();
         return head.getRef();
     }
 
     public T getTail () {
+        if (isEmpty())
+            throw new EmptyQueueException();
         return tail.getRef();
     }
 
@@ -80,15 +85,10 @@ public class Queue <T> {
 
     @Override
     public String toString() {
-
         StringBuilder nodes = new StringBuilder().append("[");
 
-        Node<T> cNode = head;
-
-        while (cNode != null) {
-            nodes.append(cNode).append(cNode.getNext() == null ? "" : ", ");
-            cNode = cNode.getNext();
-        }
+        for (Node<T> cNode = head; cNode != null; cNode = cNode.getNext())
+            nodes.append(cNode.getRef()).append(cNode.getNext() == null ? "" : ", ");
 
         nodes.append("]");
         return nodes.toString();
